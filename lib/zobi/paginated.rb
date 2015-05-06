@@ -6,7 +6,7 @@ module Zobi
   module Paginated
 
     def self.included base
-      base.send :responders, 'zobi/responders/pagination'
+      base.send :responders, Zobi::Responders::PaginationResponder
     end
 
     protected
