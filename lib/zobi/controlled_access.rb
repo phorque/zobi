@@ -66,7 +66,7 @@ module Zobi
 
     def controlled_access_build_resource
       return build_resource if respond_to?(:build_resource)
-      zobi_resource_class.new params[zobi_resource_class.to_s.to_sym]
+      zobi_resource_class.new params[zobi_resource_class.to_s.underscore]
     end
 
     def controlled_access_resource
