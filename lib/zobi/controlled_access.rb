@@ -66,12 +66,19 @@ module Zobi
 
     def controlled_access_build_resource
       return build_resource if respond_to?(:build_resource)
-      zobi_resource_class.new permitted_params[zobi_resource_class.to_s.underscore]
+
+      params = permitted_params.merge(permitted_params[zobi_resource_class_key])
+      params.delete zobi_resource_class_key
+      zobi_resource_class.new params
     end
 
     def controlled_access_resource
       return resource if respond_to?(:resource)
       zobi_resource_class.find(params[:id])
+    end
+
+    def zobi_resource_class_key
+      zobi_resource_class.to_s.underscore
     end
   end
 end

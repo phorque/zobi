@@ -31,7 +31,7 @@ module Zobi
     # @return [ActionController::Parameters]
     #
     def params
-      canonical_params.permit resource_type => permitted_fields
+      canonical_params.permit [ path_fields, { resource_type => permitted_fields } ]
     end
 
     protected
@@ -46,6 +46,11 @@ module Zobi
     #
     def translated_fields
       []
+    end
+
+    # @return [Array] array of fields from path
+    def path_fields
+      context.request.env["action_dispatch.request.path_parameters"].keys - [:format, :controller, :action]
     end
 
     # @return [Array] array of locales
